@@ -6,11 +6,12 @@ const morgan = require("morgan");
 const rateLimit = require("express-rate-limit");
 
 const authRoutes = require("./routes/auth.routes");
+const permissionRoutes = require("./routes/permission.routes");
 const userRoutes = require("./routes/user.routes");
 
-const permissionRoutes = require("./routes/permission.routes");
-
 const app = express();
+
+app.set("trust proxy", 1);
 
 app.use(
   cors({
@@ -23,8 +24,6 @@ app.use(helmet());
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(cookieParser());
-
-app.use("/api/permissions", permissionRoutes);
 
 const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
@@ -43,6 +42,7 @@ app.get("/api/health", (req, res) => {
 });
 
 app.use("/api/auth", authLimiter, authRoutes);
+app.use("/api/permissions", permissionRoutes);
 app.use("/api/users", userRoutes);
 
 module.exports = app;
