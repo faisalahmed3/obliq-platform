@@ -6,7 +6,7 @@ import { usePermissions } from "@/context/permission-context";
 import { clearAuthSession } from "@/lib/auth";
 import Link from "next/link";
 
-const API_URL = "http://localhost:5000/api";
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export default function UsersPage() {
   const router = useRouter();

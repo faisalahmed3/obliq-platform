@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
 import { setAuthSession } from "@/lib/auth";
 import AuthPreview from "@/components/dashboard/AuthPreview";
 
-const API_URL = "http://localhost:5000/api";
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export default function LoginPage() {
   const router = useRouter();
